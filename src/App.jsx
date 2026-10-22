@@ -20,7 +20,9 @@ export default function App() {
 
   useEffect(() => {
     buscarProdutos()
-      .then((dados) => setProdutos(dados))
+      .then((dados) => setProdutos(dados
+        .filter(produto => produto.price)
+        .map((produto) => ({ ...produto, price: parseFloat(produto.price) }))))
       .catch(() => setErro('Não foi possível carregar os produtos.'))
       .finally(() => setCarregando(false))
 
