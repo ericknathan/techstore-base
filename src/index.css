@@ -249,7 +249,8 @@ h2 {
 
 .mini-carrinho-texto {
   display: flex;
-  flex-direction: column;
+  align-items: baseline;
+  gap: 4px;
   line-height: 1.2;
 }
 
@@ -589,6 +590,77 @@ h2 {
   margin-right: var(--espaco-2);
   color: var(--cor-frete);
   font-weight: 700;
+}
+
+/* Modal de aviso de disponibilidade */
+
+.modal-fundo {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: var(--espaco-4);
+  background: rgba(21, 23, 28, 0.6);
+}
+
+.modal {
+  position: relative;
+  width: min(100%, 480px);
+  max-height: calc(100vh - 2 * var(--espaco-4));
+  overflow-y: auto;
+  padding: var(--espaco-6);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: 0 1rem 3rem rgba(21, 23, 28, 0.2);
+}
+
+.modal h2 {
+  margin: 0 0 var(--espaco-3);
+}
+
+.modal-fechar {
+  position: absolute;
+  top: var(--espaco-3);
+  right: var(--espaco-3);
+  border: 0;
+  padding: var(--espaco-1) var(--espaco-2);
+  background: transparent;
+  color: var(--cor-texto-suave);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal-fechar:hover {
+  color: var(--cor-texto);
+}
+
+.modal-descricao,
+.modal-mensagem p {
+  margin: 0 0 var(--espaco-5);
+  color: var(--cor-texto-suave);
+}
+
+.modal-formulario {
+  display: grid;
+  gap: var(--espaco-2);
+}
+
+.modal-formulario input {
+  width: 100%;
+  margin-bottom: var(--espaco-2);
+  padding: var(--espaco-3);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-fundo);
+}
+
+.modal-formulario .botao,
+.modal-mensagem .botao {
+  width: 100%;
+  margin-top: var(--espaco-3);
 }
 
 /* Carrinho */

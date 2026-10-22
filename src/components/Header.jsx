@@ -1,6 +1,6 @@
 import { Link, NavLink } from 'react-router'
 
-export default function Header({ clienteAtual }) {
+export default function Header({ clienteAtual, carrinho }) {
   return (
     <header className="header">
       <p className="faixa-aviso">Troca grátis em até 30 dias · Parcele em até 10x sem juros</p>
@@ -32,7 +32,9 @@ export default function Header({ clienteAtual }) {
               <circle cx="10" cy="20.5" r="1.2" />
               <circle cx="17" cy="20.5" r="1.2" />
             </svg>
-            <span className="mini-carrinho-texto">Carrinho</span>
+            <span className="mini-carrinho-texto">
+              Carrinho <small>({carrinho.length})</small>
+            </span>
           </Link>
         </div>
       </div>
