@@ -808,57 +808,6 @@ h2 {
   font-weight: 800;
 }
 
-.sugestoes {
-  display: grid;
-  gap: var(--espaco-3);
-}
-
-@media (min-width: 768px) {
-  .sugestoes {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-.sugestao {
-  display: flex;
-  align-items: center;
-  gap: var(--espaco-3);
-  background: var(--cor-superficie);
-  border: 1px solid var(--cor-borda);
-  border-radius: var(--raio);
-  padding: var(--espaco-3);
-}
-
-.sugestao-imagem-moldura {
-  flex-shrink: 0;
-  width: 56px;
-  height: 56px;
-  background: var(--cor-moldura);
-  border-radius: var(--raio-pequeno);
-  display: grid;
-  place-items: center;
-}
-
-.sugestao-imagem {
-  width: 80%;
-  height: 80%;
-  object-fit: contain;
-}
-
-.sugestao-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.sugestao-titulo {
-  margin: 0;
-  font-size: 0.85rem;
-  font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 /* Estoque */
 
 .tabela-moldura {
