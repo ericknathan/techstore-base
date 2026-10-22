@@ -8,9 +8,17 @@ export function normalizarPreco(valor) {
     return null
   }
 
-  const textoNormalizado = texto.includes(',')
-    ? texto.replaceAll('.', '').replace(',', '.')
-    : texto.replaceAll(',', '')
+  let textoNormalizado = texto
+
+  if (texto.includes(',') && texto.includes('.')) {
+    textoNormalizado = texto.indexOf(',') < texto.indexOf('.')
+      ? texto.replaceAll(',', '')
+      : texto.replaceAll('.', '').replace(',', '.')
+  } else if (texto.includes(',')) {
+    textoNormalizado = texto.split(',').length > 2
+      ? texto.replaceAll(',', '')
+      : texto.replace(',', '.')
+  }
 
   const numero = Number(textoNormalizado)
   return Number.isNaN(numero) ? null : numero
