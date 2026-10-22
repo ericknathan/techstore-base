@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.5.0 (outubro de 2026)
+
+* Produtos sem preço são filtrados da loja e seus valores são tratados com segurança no carrinho.
+* Produtos esgotados saem da listagem, enquanto links diretos permitem solicitar aviso de reposição.
+* Modal de aviso de disponibilidade com nome e e-mail, incluindo registro dos clientes na área interna.
+* Botão de aviso usa a variante secundária e também aparece nos cards de produtos esgotados.
+* Quantidade de itens exibida no carrinho e alerta visual ao adicionar produtos.
+* Cards de produtos padronizados na loja, nos produtos relacionados e nas sugestões do carrinho.
+* Frete grátis atualizado para compras acima de R$ 200 no valor final, com indicação do valor restante.
+* Painel do lojista com valor de estoque por categoria, produtos aguardando preço, clientes esperando reposição e lucro quando há custo informado.
+* Cupom `PRIMEIRACOMPRA` informa o motivo da recusa para clientes que já compraram e é revalidado ao trocar o cliente de teste.
+* Preços normalizados com suporte a vírgula decimal, prefixo de moeda e valores inválidos.
+* Recomendações ocultam produtos esgotados e os preços do carrinho são formatados como moeda.
+
 ## 1.4.0 (setembro de 2026)
 
 * Novo visual do card de produto na lista, com avaliação e selos.
