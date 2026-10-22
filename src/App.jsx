@@ -9,6 +9,7 @@ import Carrinho from './pages/Carrinho'
 import Estoque from './pages/Estoque'
 import { buscarProdutos } from './services/produtos'
 import { buscarClientes } from './services/clientes'
+import { toast } from 'sonner'
 
 export default function App() {
   const [produtos, setProdutos] = useState([])
@@ -34,6 +35,9 @@ export default function App() {
 
   function adicionarAoCarrinho(produto) {
     setCarrinho(carrinho.concat(produto))
+    toast.success(`Adicionado ao carrinho: ${produto.title}`, {
+      description: `R$ ${produto.price.toFixed(2).replace('.', ',')}`,
+    })
   }
 
   function removerUmaUnidade(produtoId) {
