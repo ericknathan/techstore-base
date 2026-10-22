@@ -1,4 +1,7 @@
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router'
+
+import BotaoAviseQuandoChegar from '../components/BotaoAviseQuandoChegar'
 
 export default function PaginaProduto({ produtos, onAdicionar }) {
   const { id } = useParams()
@@ -41,13 +44,17 @@ export default function PaginaProduto({ produtos, onAdicionar }) {
           <p className="detalhe-descricao">{produto.description}</p>
           <p className="detalhe-estoque">{produto.estoque} unidades disponíveis</p>
 
-          <button
-            className="botao botao-grande"
-            onClick={() => onAdicionar(produto)}
-            disabled={produto.estoque === 0}
-          >
-            Adicionar ao carrinho
-          </button>
+          {produto.estoque >= 1 ? (
+            <button
+              className="botao botao-grande"
+              onClick={() => onAdicionar(produto)}
+              disabled={produto.estoque === 0}
+            >
+              Adicionar ao carrinho
+            </button>
+          ) : (
+            <BotaoAviseQuandoChegar />
+          )}
 
           <ul className="detalhe-garantias">
             <li>Troca grátis em até 30 dias</li>
