@@ -45,8 +45,8 @@ export default function Estoque({ produtos, avisosDisponibilidade }) {
 
   return (
     <section>
-      <p className="sobretitulo">Área interna</p>
-      <h1>Painel da loja</h1>
+      <p className="sobretitulo">Painel do lojista</p>
+      <h1>Painel do lojista</h1>
       <p className="aviso">Acompanhe o valor do estoque, oportunidades e demandas dos clientes.</p>
 
       <div className="painel-indicadores">
@@ -68,6 +68,10 @@ export default function Estoque({ produtos, avisosDisponibilidade }) {
       </div>
 
       <h2>Valor em estoque e lucro por categoria</h2>
+      <p className="aviso">
+        O custo dos produtos não é fornecido pela API. Por isso, o lucro real fica indisponível
+        até que o time de suprimentos informe esses valores.
+      </p>
       <div className="tabela-moldura">
         <table className="tabela">
           <thead>

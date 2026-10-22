@@ -112,7 +112,7 @@ export default function App() {
               }
             />
             <Route
-              path="/estoque"
+              path="/painel"
               element={
                 <Estoque
                   produtos={produtos}

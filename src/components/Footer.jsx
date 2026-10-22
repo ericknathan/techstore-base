@@ -18,8 +18,8 @@ export default function Footer({ clientes, clienteAtualId, onTrocarCliente }) {
         </div>
 
         <div className="footer-coluna">
-          <p className="footer-titulo">Área interna</p>
-          <Link to="/estoque">Estoque</Link>
+          <p className="footer-titulo">Painel do lojista</p>
+          <Link to="/painel">Acessar painel</Link>
         </div>
       </div>
 

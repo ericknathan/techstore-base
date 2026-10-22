@@ -13,6 +13,7 @@
 * Cupom `PRIMEIRACOMPRA` informa o motivo da recusa para clientes que já compraram e é revalidado ao trocar o cliente de teste.
 * Preços normalizados com suporte a vírgula decimal, prefixo de moeda e valores inválidos.
 * Recomendações ocultam produtos esgotados e os preços do carrinho são formatados como moeda.
+* Página de `/estoque` renomeada para `/painel` para englobar tudo exibido na página.
 
 ## 1.4.0 (setembro de 2026)
 
