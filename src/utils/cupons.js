@@ -7,11 +7,14 @@ export function validarCupom(codigo, cliente) {
   const desconto = CUPONS[codigoNormalizado]
 
   if (!desconto) {
-    return { valido: false }
+    return { valido: false, mensagem: 'Cupom não encontrado.' }
   }
 
-  if (codigoNormalizado === 'PRIMEIRACOMPRA' && cliente.pedidosAnteriores > 0) {
-    return { valido: false }
+  if (codigoNormalizado === 'PRIMEIRACOMPRA' && cliente?.pedidosAnteriores > 0) {
+    return {
+      valido: false,
+      mensagem: 'Esse cupom é exclusivo para clientes na primeira compra.',
+    }
   }
 
   return { valido: true, desconto }

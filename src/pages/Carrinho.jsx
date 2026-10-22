@@ -33,7 +33,7 @@ export default function Carrinho({ carrinho, produtos, clienteAtual, onAdicionar
       setMensagemCupom('Cupom aplicado!')
     } else {
       setCupomAplicado(null)
-      setMensagemCupom('Cupom inválido')
+      setMensagemCupom(resultado.mensagem)
     }
   }
 
