@@ -18,7 +18,10 @@ export default function Carrinho({ carrinho, produtos, clienteAtual, onAdicionar
   const valorRestanteFrete = VALOR_MINIMO_FRETE_GRATIS - totalFinal
 
   const sugestoes = produtos
-    .filter((produto) => !carrinho.find((item) => item.id === produto.id))
+    .filter(
+      (produto) =>
+        produto.price !== null && !carrinho.find((item) => item.id === produto.id)
+    )
     .slice(0, 3)
 
   function aplicarCupom(evento) {

@@ -4,6 +4,7 @@ import { VALOR_MINIMO_FRETE_GRATIS } from '../utils/configuracoes'
 
 export default function ProdutoCard({ produto, onAdicionar }) {
   const esgotado = produto.estoque === 0
+  const semPreco = produto.price === null
 
   return (
     <article className="card">
@@ -22,18 +23,24 @@ export default function ProdutoCard({ produto, onAdicionar }) {
         {produto.precoOriginal && (
           <span className="preco-original">{formatarPreco(produto.precoOriginal)}</span>
         )}
-        <span className="preco">{formatarPreco(produto.price)}</span>
+        <span className="preco">
+          {semPreco ? 'Preço em breve' : formatarPreco(produto.price)}
+        </span>
       </div>
 
       <div className="card-selos">
-        {produto.price >= VALOR_MINIMO_FRETE_GRATIS && (
+        {!semPreco && produto.price >= VALOR_MINIMO_FRETE_GRATIS && (
           <span className="selo selo-frete">Frete grátis</span>
         )}
         {esgotado && <span className="selo selo-esgotado">Esgotado</span>}
       </div>
 
-      <button className="botao" onClick={() => onAdicionar(produto)} disabled={esgotado}>
-        Adicionar ao carrinho
+      <button
+        className="botao"
+        onClick={() => onAdicionar(produto)}
+        disabled={esgotado || semPreco}
+      >
+        {semPreco ? 'Aguardando preço' : 'Adicionar ao carrinho'}
       </button>
     </article>
   )

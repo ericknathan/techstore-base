@@ -18,12 +18,16 @@ export default function App() {
   const [carrinho, setCarrinho] = useState([])
   const [clientes, setClientes] = useState([])
   const [clienteAtualId, setClienteAtualId] = useState(null)
+  const [avisosDisponibilidade, setAvisosDisponibilidade] = useState([])
 
   useEffect(() => {
     buscarProdutos()
-      .then((dados) => setProdutos(dados
-        .filter(produto => produto.price)
-        .map((produto) => ({ ...produto, price: parseFloat(produto.price) }))))
+      .then((dados) => setProdutos(dados.map((produto) => ({
+        ...produto,
+        price: produto.price === null || produto.price === undefined || produto.price === ''
+          ? null
+          : parseFloat(produto.price),
+      }))))
       .catch(() => setErro('Não foi possível carregar os produtos.'))
       .finally(() => setCarregando(false))
 
@@ -54,6 +58,10 @@ export default function App() {
     )
   }
 
+  function registrarAvisoDisponibilidade(aviso) {
+    setAvisosDisponibilidade((avisosAtuais) => avisosAtuais.concat(aviso))
+  }
+
   const clienteAtual = clientes.find((cliente) => cliente.id === clienteAtualId)
 
   return (
@@ -73,7 +81,13 @@ export default function App() {
             />
             <Route
               path="/produto/:id"
-              element={<PaginaProduto produtos={produtos} onAdicionar={adicionarAoCarrinho} />}
+              element={
+                <PaginaProduto
+                  produtos={produtos}
+                  onAdicionar={adicionarAoCarrinho}
+                  onRegistrarAviso={registrarAvisoDisponibilidade}
+                />
+              }
             />
             <Route
               path="/carrinho"
@@ -87,7 +101,15 @@ export default function App() {
                 />
               }
             />
-            <Route path="/estoque" element={<Estoque produtos={produtos} />} />
+            <Route
+              path="/estoque"
+              element={
+                <Estoque
+                  produtos={produtos}
+                  avisosDisponibilidade={avisosDisponibilidade}
+                />
+              }
+            />
           </Routes>
         )}
       </main>

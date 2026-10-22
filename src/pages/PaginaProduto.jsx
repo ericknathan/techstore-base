@@ -3,10 +3,12 @@ import { Link, useParams } from 'react-router'
 
 import BotaoAviseQuandoChegar from '../components/BotaoAviseQuandoChegar'
 import ProdutoCard from '../components/ProdutoCard'
+import { formatarPreco } from '../utils/formatarPreco'
 
-export default function PaginaProduto({ produtos, onAdicionar }) {
+export default function PaginaProduto({ produtos, onAdicionar, onRegistrarAviso }) {
   const { id } = useParams()
   const produto = produtos.find((item) => item.id === id)
+  const semPreco = produto && produto.price === null
 
   if (!produto) {
     return (
@@ -20,7 +22,12 @@ export default function PaginaProduto({ produtos, onAdicionar }) {
   }
 
   const relacionados = produtos
-    .filter((item) => item.category === produto.category && item.id !== produto.id)
+    .filter(
+      (item) =>
+        item.price !== null &&
+        item.category === produto.category &&
+        item.id !== produto.id
+    )
     .slice(0, 4)
 
   return (
@@ -41,11 +48,17 @@ export default function PaginaProduto({ produtos, onAdicionar }) {
           <p className="card-avaliacao">
             ★ {produto.rating.rate} <span>({produto.rating.count} avaliações)</span>
           </p>
-          <p className="detalhe-preco">R$ {produto.price.toFixed(2).replace('.', ',')}</p>
+          <p className="detalhe-preco">
+            {semPreco ? 'Preço em breve' : formatarPreco(produto.price)}
+          </p>
           <p className="detalhe-descricao">{produto.description}</p>
           <p className="detalhe-estoque">{produto.estoque} unidades disponíveis</p>
 
-          {produto.estoque >= 1 ? (
+          {semPreco ? (
+            <button className="botao botao-grande" disabled>
+              Aguardando preço
+            </button>
+          ) : produto.estoque >= 1 ? (
             <button
               className="botao botao-grande"
               onClick={() => onAdicionar(produto)}
@@ -54,7 +67,10 @@ export default function PaginaProduto({ produtos, onAdicionar }) {
               Adicionar ao carrinho
             </button>
           ) : (
-            <BotaoAviseQuandoChegar />
+            <BotaoAviseQuandoChegar
+              produto={produto}
+              onRegistrarAviso={onRegistrarAviso}
+            />
           )}
 
           <ul className="detalhe-garantias">

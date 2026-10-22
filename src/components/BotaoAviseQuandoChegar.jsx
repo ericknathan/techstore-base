@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export default function BotaoAviseQuandoChegar() {
+export default function BotaoAviseQuandoChegar({ produto, onRegistrarAviso }) {
     const [modalAberto, setModalAberto] = useState(false)
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
@@ -80,6 +80,7 @@ export default function BotaoAviseQuandoChegar() {
                                     className="modal-formulario"
                                     onSubmit={(evento) => {
                                         evento.preventDefault()
+                                        onRegistrarAviso({ produtoId: produto.id, nome, email })
                                         setSolicitacaoEnviada(true)
                                     }}
                                 >
