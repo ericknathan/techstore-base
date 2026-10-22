@@ -32,10 +32,9 @@ export default function Estoque({ produtos, avisosDisponibilidade }) {
   const avisosPorProduto = produtosEsgotados
     .map((produto) => ({
       ...produto,
-      quantidadeAvisos: avisosDisponibilidade.filter((aviso) => aviso.produtoId === produto.id)
-        .length,
+      avisos: avisosDisponibilidade.filter((aviso) => aviso.produtoId === produto.id),
     }))
-    .filter((produto) => produto.quantidadeAvisos > 0)
+    .filter((produto) => produto.avisos.length > 0)
   const totalAvisos = avisosDisponibilidade.length
   const ordenados = produtos.slice().sort((a, b) => a.estoque - b.estoque)
 
@@ -93,7 +92,7 @@ export default function Estoque({ produtos, avisosDisponibilidade }) {
               <tr>
                 <th>Produto</th>
                 <th>Categoria</th>
-                <th>Clientes esperando</th>
+                <th>Nome e e-mail</th>
               </tr>
             </thead>
             <tbody>
@@ -101,7 +100,15 @@ export default function Estoque({ produtos, avisosDisponibilidade }) {
                 <tr key={produto.id}>
                   <td>{produto.title}</td>
                   <td>{CATEGORIAS[produto.category] || produto.category}</td>
-                  <td>{produto.quantidadeAvisos}</td>
+                  <td>
+                    <ul className="lista-avisos">
+                      {produto.avisos.map((aviso, indice) => (
+                        <li key={`${aviso.email}-${indice}`}>
+                          {aviso.nome} · {aviso.email}
+                        </li>
+                      ))}
+                    </ul>
+                  </td>
                 </tr>
               ))}
             </tbody>

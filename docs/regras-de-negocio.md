@@ -11,7 +11,7 @@ sobre quanto falta para atingir esse valor.
 
 | Cupom | Desconto | Quem pode usar |
 |---|---|---|
-| `PRIMEIRACOMPRA` | 10% sobre o total | Qualquer cliente |
+| `PRIMEIRACOMPRA` | 10% sobre o total | Cliente sem pedidos anteriores |
 
 O cupom não diferencia letras maiúsculas e minúsculas.
 
