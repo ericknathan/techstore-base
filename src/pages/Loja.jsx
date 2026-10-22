@@ -15,7 +15,7 @@ export default function Loja({ produtos, onAdicionar, onRegistrarAviso }) {
 
   useEffect(() => {
     const produtosVendaveis = produtos.filter(
-      (produto) => produto.price !== null && produto.estoque > 0
+      (produto) => produto.price !== null && Number(produto.estoque) > 0
     )
 
     if (categoria === 'todas') {

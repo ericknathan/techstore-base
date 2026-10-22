@@ -9,6 +9,7 @@ export default function PaginaProduto({ produtos, onAdicionar, onRegistrarAviso 
   const { id } = useParams()
   const produto = produtos.find((item) => item.id === id)
   const semPreco = produto && produto.price === null
+  const esgotado = produto && Number(produto.estoque) === 0
 
   if (!produto) {
     return (
@@ -53,13 +54,15 @@ export default function PaginaProduto({ produtos, onAdicionar, onRegistrarAviso 
             {semPreco ? 'Preço em breve' : formatarPreco(produto.price)}
           </p>
           <p className="detalhe-descricao">{produto.description}</p>
-          <p className="detalhe-estoque">{produto.estoque} unidades disponíveis</p>
+          <p className="detalhe-estoque">
+            {esgotado ? 'Produto esgotado' : `${produto.estoque} unidades disponíveis`}
+          </p>
 
           {semPreco ? (
             <button className="botao botao-grande" disabled>
               Aguardando preço
             </button>
-          ) : produto.estoque >= 1 ? (
+          ) : !esgotado ? (
             <button
               className="botao botao-grande"
               onClick={() => onAdicionar(produto)}

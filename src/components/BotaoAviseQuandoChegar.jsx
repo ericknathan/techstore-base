@@ -84,7 +84,19 @@ export default function BotaoAviseQuandoChegar({
                                     className="modal-formulario"
                                     onSubmit={(evento) => {
                                         evento.preventDefault()
-                                        onRegistrarAviso({ produtoId: produto.id, nome, email })
+
+                                        const nomeLimpo = nome.trim()
+                                        const emailLimpo = email.trim()
+
+                                        if (!nomeLimpo || !emailLimpo) {
+                                            return
+                                        }
+
+                                        onRegistrarAviso({
+                                            produtoId: produto.id,
+                                            nome: nomeLimpo,
+                                            email: emailLimpo,
+                                        })
                                         setSolicitacaoEnviada(true)
                                     }}
                                 >

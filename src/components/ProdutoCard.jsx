@@ -4,8 +4,9 @@ import { formatarPreco } from '../utils/formatarPreco'
 import { VALOR_MINIMO_FRETE_GRATIS } from '../utils/configuracoes'
 
 export default function ProdutoCard({ produto, onAdicionar, onRegistrarAviso }) {
-  const esgotado = produto.estoque === 0
+  const esgotado = Number(produto.estoque) === 0
   const semPreco = produto.price === null
+  const freteGratis = Number(produto.price) >= VALOR_MINIMO_FRETE_GRATIS
 
   return (
     <article className="card">
@@ -30,9 +31,7 @@ export default function ProdutoCard({ produto, onAdicionar, onRegistrarAviso }) 
       </div>
 
       <div className="card-selos">
-        {!semPreco && produto.price >= VALOR_MINIMO_FRETE_GRATIS && (
-          <span className="selo selo-frete">Frete grátis</span>
-        )}
+        {!semPreco && freteGratis && <span className="selo selo-frete">Frete grátis</span>}
         {esgotado && <span className="selo selo-esgotado">Esgotado</span>}
       </div>
 

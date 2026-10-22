@@ -37,13 +37,13 @@ export default function App() {
   }, [])
 
   function adicionarAoCarrinho(produto) {
-    if (produto.price === null) {
+    if (!produto || produto.price === null || produto.estoque === 0) {
       return
     }
 
-    setCarrinho(carrinho.concat(produto))
+    setCarrinho((itensAtuais) => itensAtuais.concat(produto))
     toast.success(`Adicionado ao carrinho: ${produto.title}`, {
-      description: `R$ ${produto.price.toFixed(2).replace('.', ',')}`,
+      description: `R$ ${Number(produto.price).toFixed(2).replace('.', ',')}`,
     })
   }
 
@@ -62,7 +62,15 @@ export default function App() {
   }
 
   function registrarAvisoDisponibilidade(aviso) {
-    setAvisosDisponibilidade((avisosAtuais) => avisosAtuais.concat(aviso))
+    setAvisosDisponibilidade((avisosAtuais) => {
+      const jaExiste = avisosAtuais.some(
+        (item) =>
+          item.produtoId === aviso.produtoId &&
+          item.email.trim().toLowerCase() === aviso.email.trim().toLowerCase()
+      )
+
+      return jaExiste ? avisosAtuais : avisosAtuais.concat(aviso)
+    })
   }
 
   const clienteAtual = clientes.find((cliente) => cliente.id === clienteAtualId)

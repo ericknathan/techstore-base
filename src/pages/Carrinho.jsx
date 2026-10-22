@@ -34,13 +34,13 @@ export default function Carrinho({
   const total = calcularTotal(carrinho)
   const totalFinal = cupomAplicado ? total * (1 - cupomAplicado.desconto) : total
   const freteGratis = totalFinal >= VALOR_MINIMO_FRETE_GRATIS
-  const valorRestanteFrete = VALOR_MINIMO_FRETE_GRATIS - totalFinal
+  const valorRestanteFrete = Math.max(0, VALOR_MINIMO_FRETE_GRATIS - totalFinal)
 
   const sugestoes = produtos
     .filter(
       (produto) =>
         produto.price !== null &&
-        produto.estoque > 0 &&
+        Number(produto.estoque) > 0 &&
         !carrinho.find((item) => item.id === produto.id)
     )
     .slice(0, 3)
