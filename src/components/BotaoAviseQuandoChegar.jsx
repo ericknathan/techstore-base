@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react"
 
-export default function BotaoAviseQuandoChegar({ produto, onRegistrarAviso }) {
+export default function BotaoAviseQuandoChegar({
+    produto,
+    onRegistrarAviso,
+    compacto = false,
+}) {
     const [modalAberto, setModalAberto] = useState(false)
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
@@ -22,7 +26,7 @@ export default function BotaoAviseQuandoChegar({ produto, onRegistrarAviso }) {
     return (
         <>
             <button
-                className="botao botao-grande"
+                className={compacto ? 'botao botao-secundario' : 'botao botao-secundario botao-grande'}
                 onClick={() => {
                     setSolicitacaoEnviada(false)
                     setModalAberto(true)

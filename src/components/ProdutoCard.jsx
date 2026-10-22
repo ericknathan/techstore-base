@@ -1,8 +1,9 @@
 import { Link } from 'react-router'
+import BotaoAviseQuandoChegar from './BotaoAviseQuandoChegar'
 import { formatarPreco } from '../utils/formatarPreco'
 import { VALOR_MINIMO_FRETE_GRATIS } from '../utils/configuracoes'
 
-export default function ProdutoCard({ produto, onAdicionar }) {
+export default function ProdutoCard({ produto, onAdicionar, onRegistrarAviso }) {
   const esgotado = produto.estoque === 0
   const semPreco = produto.price === null
 
@@ -35,13 +36,21 @@ export default function ProdutoCard({ produto, onAdicionar }) {
         {esgotado && <span className="selo selo-esgotado">Esgotado</span>}
       </div>
 
-      <button
-        className="botao"
-        onClick={() => onAdicionar(produto)}
-        disabled={esgotado || semPreco}
-      >
-        {semPreco ? 'Aguardando preço' : 'Adicionar ao carrinho'}
-      </button>
+      {esgotado ? (
+        <BotaoAviseQuandoChegar
+          produto={produto}
+          onRegistrarAviso={onRegistrarAviso}
+          compacto
+        />
+      ) : (
+        <button
+          className="botao"
+          onClick={() => onAdicionar(produto)}
+          disabled={semPreco}
+        >
+          {semPreco ? 'Aguardando preço' : 'Adicionar ao carrinho'}
+        </button>
+      )}
     </article>
   )
 }

@@ -83,7 +83,12 @@ export default function PaginaProduto({ produtos, onAdicionar, onRegistrarAviso 
       <h2>Produtos relacionados</h2>
       <div className="grade">
         {relacionados.map((item) => (
-          <ProdutoCard key={item.id} produto={item} onAdicionar={onAdicionar} />
+          <ProdutoCard
+            key={item.id}
+            produto={item}
+            onAdicionar={onAdicionar}
+            onRegistrarAviso={onRegistrarAviso}
+          />
         ))}
       </div>
     </section>

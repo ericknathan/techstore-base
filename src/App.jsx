@@ -77,7 +77,13 @@ export default function App() {
           <Routes>
             <Route
               path="/"
-              element={<Loja produtos={produtos} onAdicionar={adicionarAoCarrinho} />}
+              element={
+                <Loja
+                  produtos={produtos}
+                  onAdicionar={adicionarAoCarrinho}
+                  onRegistrarAviso={registrarAvisoDisponibilidade}
+                />
+              }
             />
             <Route
               path="/produto/:id"
@@ -98,6 +104,7 @@ export default function App() {
                   clienteAtual={clienteAtual}
                   onAdicionar={adicionarAoCarrinho}
                   onRemover={removerUmaUnidade}
+                  onRegistrarAviso={registrarAvisoDisponibilidade}
                 />
               }
             />

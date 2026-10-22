@@ -6,7 +6,14 @@ import { validarCupom } from '../utils/cupons'
 import { formatarPreco } from '../utils/formatarPreco'
 import { VALOR_MINIMO_FRETE_GRATIS } from '../utils/configuracoes'
 
-export default function Carrinho({ carrinho, produtos, clienteAtual, onAdicionar, onRemover }) {
+export default function Carrinho({
+  carrinho,
+  produtos,
+  clienteAtual,
+  onAdicionar,
+  onRemover,
+  onRegistrarAviso,
+}) {
   const [codigoCupom, setCodigoCupom] = useState('')
   const [cupomAplicado, setCupomAplicado] = useState(null)
   const [mensagemCupom, setMensagemCupom] = useState('')
@@ -114,7 +121,12 @@ export default function Carrinho({ carrinho, produtos, clienteAtual, onAdicionar
       <h2>Você também pode gostar</h2>
       <div className="grade">
         {sugestoes.map((produto) => (
-          <ProdutoCard key={produto.id} produto={produto} onAdicionar={onAdicionar} />
+          <ProdutoCard
+            key={produto.id}
+            produto={produto}
+            onAdicionar={onAdicionar}
+            onRegistrarAviso={onRegistrarAviso}
+          />
         ))}
       </div>
     </section>
