@@ -8,7 +8,9 @@ const CATEGORIAS = {
 }
 
 function obterCusto(produto) {
-  return Number(produto.custo ?? produto.cost ?? produto.precoCusto ?? 0)
+  const custo = produto.custo ?? produto.cost ?? produto.precoCusto
+  const numero = Number(custo)
+  return Number.isFinite(numero) && numero >= 0 ? numero : null
 }
 
 export default function Estoque({ produtos, avisosDisponibilidade }) {
@@ -18,13 +20,16 @@ export default function Estoque({ produtos, avisosDisponibilidade }) {
       (total, produto) => total + (produto.price || 0) * produto.estoque,
       0
     )
-    const lucro = produtosDaCategoria.reduce(
+    const produtosComCusto = produtosDaCategoria.filter(
+      (produto) => produto.price !== null && obterCusto(produto) !== null
+    )
+    const lucro = produtosComCusto.reduce(
       (total, produto) =>
-        total + ((produto.price || 0) - obterCusto(produto)) * produto.estoque,
+        total + (produto.price - obterCusto(produto)) * produto.estoque,
       0
     )
 
-    return { categoria, valorEstoque, lucro }
+    return { categoria, valorEstoque, lucro, temCusto: produtosComCusto.length > 0 }
   })
 
   const produtosSemPreco = produtos.filter((produto) => produto.price === null)
@@ -62,14 +67,14 @@ export default function Estoque({ produtos, avisosDisponibilidade }) {
         </article>
       </div>
 
-      <h2>Valor e lucro por categoria</h2>
+      <h2>Valor em estoque e lucro por categoria</h2>
       <div className="tabela-moldura">
         <table className="tabela">
           <thead>
             <tr>
               <th>Categoria</th>
               <th>Valor em estoque</th>
-              <th>Lucro estimado</th>
+              <th>Lucro (com custo informado)</th>
             </tr>
           </thead>
           <tbody>
@@ -77,7 +82,7 @@ export default function Estoque({ produtos, avisosDisponibilidade }) {
               <tr key={item.categoria}>
                 <td>{CATEGORIAS[item.categoria]}</td>
                 <td>{formatarPreco(item.valorEstoque)}</td>
-                <td>{formatarPreco(item.lucro)}</td>
+                <td>{item.temCusto ? formatarPreco(item.lucro) : 'Indisponível'}</td>
               </tr>
             ))}
           </tbody>

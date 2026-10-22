@@ -9,6 +9,7 @@ import Carrinho from './pages/Carrinho'
 import Estoque from './pages/Estoque'
 import { buscarProdutos } from './services/produtos'
 import { buscarClientes } from './services/clientes'
+import { normalizarPreco } from './utils/normalizarPreco'
 import { toast } from 'sonner'
 
 export default function App() {
@@ -24,9 +25,7 @@ export default function App() {
     buscarProdutos()
       .then((dados) => setProdutos(dados.map((produto) => ({
         ...produto,
-        price: produto.price === null || produto.price === undefined || produto.price === ''
-          ? null
-          : parseFloat(produto.price),
+        price: normalizarPreco(produto.price),
       }))))
       .catch(() => setErro('Não foi possível carregar os produtos.'))
       .finally(() => setCarregando(false))
@@ -38,6 +37,10 @@ export default function App() {
   }, [])
 
   function adicionarAoCarrinho(produto) {
+    if (produto.price === null) {
+      return
+    }
+
     setCarrinho(carrinho.concat(produto))
     toast.success(`Adicionado ao carrinho: ${produto.title}`, {
       description: `R$ ${produto.price.toFixed(2).replace('.', ',')}`,

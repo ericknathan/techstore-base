@@ -25,6 +25,7 @@ export default function PaginaProduto({ produtos, onAdicionar, onRegistrarAviso 
     .filter(
       (item) =>
         item.price !== null &&
+        item.estoque > 0 &&
         item.category === produto.category &&
         item.id !== produto.id
     )
