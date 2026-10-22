@@ -415,14 +415,14 @@ h2 {
   white-space: nowrap;
 }
 
-.selo-frete {
-  background: var(--cor-frete-fundo);
-  color: var(--cor-frete);
-}
-
 .selo-esgotado {
   background: var(--cor-erro-fundo);
   color: var(--cor-erro);
+}
+
+.selo-frete {
+  background: var(--cor-frete-fundo);
+  color: var(--cor-frete);
 }
 
 .selo-alerta {
@@ -789,6 +789,17 @@ h2 {
   margin: 0;
   font-size: 0.85rem;
   font-weight: 600;
+}
+
+.mensagem-frete {
+  margin: 0;
+  color: var(--cor-alerta);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.mensagem-frete-ok {
+  color: var(--cor-frete);
 }
 
 .resumo-linha,

@@ -1,0 +1,1 @@
+export const VALOR_MINIMO_FRETE_GRATIS = 200

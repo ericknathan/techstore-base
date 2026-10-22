@@ -4,6 +4,7 @@ import ProdutoCard from '../components/ProdutoCard'
 import { agruparItens, calcularTotal } from '../utils/carrinho'
 import { validarCupom } from '../utils/cupons'
 import { formatarPreco } from '../utils/formatarPreco'
+import { VALOR_MINIMO_FRETE_GRATIS } from '../utils/configuracoes'
 
 export default function Carrinho({ carrinho, produtos, clienteAtual, onAdicionar, onRemover }) {
   const [codigoCupom, setCodigoCupom] = useState('')
@@ -12,7 +13,9 @@ export default function Carrinho({ carrinho, produtos, clienteAtual, onAdicionar
 
   const itens = agruparItens(carrinho)
   const total = calcularTotal(carrinho)
-  const totalComDesconto = cupomAplicado ? total * (1 - cupomAplicado.desconto) : total
+  const totalFinal = cupomAplicado ? total * (1 - cupomAplicado.desconto) : total
+  const freteGratis = totalFinal >= VALOR_MINIMO_FRETE_GRATIS
+  const valorRestanteFrete = VALOR_MINIMO_FRETE_GRATIS - totalFinal
 
   const sugestoes = produtos
     .filter((produto) => !carrinho.find((item) => item.id === produto.id))
@@ -93,9 +96,14 @@ export default function Carrinho({ carrinho, produtos, clienteAtual, onAdicionar
               <span>{cupomAplicado.desconto * 100}%</span>
             </p>
           )}
+          <p className={freteGratis ? 'mensagem-frete mensagem-frete-ok' : 'mensagem-frete'}>
+            {freteGratis
+              ? 'Você ganhou frete grátis!'
+              : `Faltam ${formatarPreco(valorRestanteFrete)} para ganhar frete grátis.`}
+          </p>
           <p className="total">
             <span>Total</span>
-            <span>{formatarPreco(totalComDesconto)}</span>
+            <span>{formatarPreco(totalFinal)}</span>
           </p>
         </aside>
       </div>
